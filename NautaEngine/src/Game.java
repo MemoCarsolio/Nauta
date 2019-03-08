@@ -14,6 +14,7 @@ public class Game implements Runnable{
     private Window window;
     private Handler handler;
     private KeyInput keyInput;
+    private Spawner spawner;
     
     //Classes for game rendering
     private BufferStrategy bs;
@@ -40,6 +41,9 @@ public class Game implements Runnable{
         
         //Create the handler for game objects.
         handler = new Handler();
+
+        //
+        spawner = new Spawner(handler);
         
         //*******************
         //AÑADIR SPRITE AQUÍ
@@ -93,6 +97,7 @@ public class Game implements Runnable{
     public void tick()
     {
         handler.tick();
+        spawner.tick();
     }
     
     //Render the game.
