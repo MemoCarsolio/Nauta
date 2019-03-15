@@ -25,7 +25,12 @@ public class Asteroid extends GameObject{
         return (new Rectangle(getX(), getY(), width, height));
 
     }
-
+    
+    @Override
+    public void keyPressed(int e) {
+    
+    }
+    
     @Override
     public void paint(Graphics g) {
         g.setColor(color);

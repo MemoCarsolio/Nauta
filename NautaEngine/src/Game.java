@@ -2,6 +2,7 @@ import java.awt.Color;
 import image.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game implements Runnable{
     
@@ -11,13 +12,21 @@ public class Game implements Runnable{
     //Game thread.
     public Thread thread;
     
+    //Game level
+    private enum stage {
+        MENU, SPACE, PLANET
+    }
+    private stage currentStage;
+    
+    private Button startBtn;
+    
     private Window window;
     private Handler handler;
-    private KeyInput keyInput;
     private Spawner spawner;
     
     //Classes for game rendering
     private BufferStrategy bs;
+    private BufferedImage background;
     private Graphics g;
     
     private boolean running = false;
@@ -42,34 +51,16 @@ public class Game implements Runnable{
         //Create the handler for game objects.
         handler = new Handler();
 
-        //
+        //Create spawner.
         spawner = new Spawner(handler);
         
-        //*******************
-        //AÑADIR SPRITE AQUÍ
-        //*******************
-        
-        //Create sprite.
-        //Sprite sprite = new Sprite(100, 200, 32, 32, Color.WHITE, handler);
-        
-        //Create KeyInput (KeyListener) for the sprite.
-        //keyInput = new KeyInput(sprite);
-        
-        //Add the listener to the window's frame.
-        //window.getFrame().addKeyListener(keyInput);
-        
-        //Add sprite to handler.
-        //handler.addObj(sprite);
-        
-        //**********************
-        //**********************
     }
     
     //Start the game.
-    public synchronized void start()
-    {
-        //Do nothing if game is already running.
-        if (running) return;
+    public void start() {
+        
+        //Set stage to menu.
+        currentStage = stage.MENU;
         
         //Set running to true and initialize thread.
         running = true;
@@ -121,7 +112,7 @@ public class Game implements Runnable{
         g.clearRect(0, 0, width, height);
         
         //Draw background.
-        g.drawImage(Assets.background, 0, 0, width, height, null);
+        g.drawImage(background, 0, 0, width, height, null);
         
         //Draw objects contained in handler.
         handler.render(g);
@@ -163,8 +154,12 @@ public class Game implements Runnable{
         //Get lastTime. Initialize now and timer.
         long now, lastTime = System.nanoTime(), timer = 0;
         
+        stageSetup();
+        
         while (running)
         {
+            runStage();
+            
             //Get now time.
             now = System.nanoTime();
             
@@ -202,6 +197,53 @@ public class Game implements Runnable{
         
         //Stop if game isn't running.
         stop();
+    }
+    
+    public void stageSetup(){
+        switch (currentStage){
+            
+            case MENU:
+                
+                background = Assets.menu;
+                
+                startBtn = new Button(width/2 - 40, 250, 80, 40, Color.LIGHT_GRAY, handler);
+                
+                KeyInput startKeyInput = new KeyInput(startBtn);
+                
+                window.getFrame().addKeyListener(startKeyInput);
+                
+                handler.addObj(startBtn);
+                
+                break;
+                
+            case SPACE:
+                break;
+                
+            case PLANET:
+                
+                background = Assets.planet;
+                
+                spawner.activateAsteroids();
+                break;
+        }
+        
+    }
+    
+    public void runStage(){
+        
+        switch (currentStage){
+            case MENU:
+                if (startBtn.isPressed()){
+                    currentStage = stage.PLANET;
+                    stageSetup();
+                    handler.removeObj(startBtn);
+                }
+                break;
+            case SPACE:
+                break;
+            case PLANET:
+                break;
+        }
     }
     
     public int getWidth() { return width; }

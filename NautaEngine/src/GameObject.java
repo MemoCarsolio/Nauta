@@ -31,6 +31,8 @@ public abstract class GameObject {
     // Para obtener los bordes del objeto (nos ayuda con las colisiones)
     public abstract Rectangle getBounds();
     
+    public abstract void keyPressed(int e);
+    
     // A partir de aqu� son los getters y setters
     public int getX()
     {

@@ -5,19 +5,19 @@ import java.awt.event.KeyListener;
 public class KeyInput implements KeyListener{
     
     //Target game object.
-    //Sprite sprite;
+    GameObject object;
     
     //Constructor.
-    /*public KeyInput(Sprite sprite) {
-        this.sprite = sprite;
-    }*/
+    public KeyInput(GameObject object) {
+        this.object = object;
+    }
     
     @Override
     public void keyPressed(KeyEvent e) {
         
         int key = e.getKeyCode();
         
-        //sprite.keyPressed(key);
+        object.keyPressed(key);
     }
     
     @Override
