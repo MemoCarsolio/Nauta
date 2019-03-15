@@ -23,6 +23,11 @@ public class Handler {
         {
             GameObject aux = iterator.next();
             aux.tick();
+            if (aux instanceof Asteroid){
+                if (aux.getY() >= 480){
+                    obj.remove(aux);
+                }
+            }
         }
     }
     

@@ -6,18 +6,23 @@ public class KeyInput implements KeyListener{
     
     //Target game object.
     //Sprite sprite;
+    Nauta nau;
     
     //Constructor.
     /*public KeyInput(Sprite sprite) {
         this.sprite = sprite;
     }*/
+    public KeyInput(Nauta n){
+        nau = n;
+    }
     
     @Override
     public void keyPressed(KeyEvent e) {
-        
+        System.out.println("hi");
         int key = e.getKeyCode();
-        
-        //sprite.keyPressed(key);
+
+
+        nau.keyPressed(key);
     }
     
     @Override
@@ -25,7 +30,7 @@ public class KeyInput implements KeyListener{
         
         int key = e.getKeyCode();
         
-        //sprite.keyReleased(key);
+        nau.keyReleased(key);
     }
     
     @Override

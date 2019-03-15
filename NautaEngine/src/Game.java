@@ -44,6 +44,15 @@ public class Game implements Runnable{
 
         //
         spawner = new Spawner(handler);
+
+        Nauta nau = new Nauta(430, 400,10,10,Color.yellow, handler);
+        keyInput = new KeyInput(nau);
+        window.getFrame().addKeyListener(keyInput);
+
+
+        handler.addObj(nau);
+
+
         
         //*******************
         //AÑADIR SPRITE AQUÍ
