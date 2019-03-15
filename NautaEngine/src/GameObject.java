@@ -32,6 +32,7 @@ public abstract class GameObject {
     public abstract Rectangle getBounds();
     
     public abstract void keyPressed(int e);
+    public abstract void keyReleased(int e);
     
     // A partir de aqu� son los getters y setters
     public int getX()

@@ -4,20 +4,29 @@ import java.awt.event.KeyListener;
 //Class used to read input form keyboard.
 public class KeyInput implements KeyListener{
     
-    //Target game object.
+
     GameObject object;
+    Nauta nau;
     
     //Constructor.
     public KeyInput(GameObject object) {
         this.object = object;
     }
+    public KeyInput(Nauta nau){
+        this.object = nau;
+    }
+
+    
+
+
     
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
         int key = e.getKeyCode();
-        
+
         object.keyPressed(key);
+
     }
     
     @Override
@@ -25,7 +34,7 @@ public class KeyInput implements KeyListener{
         
         int key = e.getKeyCode();
         
-        //sprite.keyReleased(key);
+       object   .keyReleased(key);
     }
     
     @Override

@@ -30,7 +30,12 @@ public class Asteroid extends GameObject{
     public void keyPressed(int e) {
     
     }
-    
+
+    @Override
+    public void keyReleased(int e) {
+
+    }
+
     @Override
     public void paint(Graphics g) {
         g.setColor(color);

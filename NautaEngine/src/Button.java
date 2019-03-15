@@ -30,7 +30,12 @@ public class Button extends GameObject {
         pressed = true;
         System.out.println("Button pressed.");
     }
-    
+
+    @Override
+    public void keyReleased(int e) {
+
+    }
+
     public boolean isPressed(){
         return pressed;
     }
