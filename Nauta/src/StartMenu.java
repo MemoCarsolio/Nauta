@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -10,12 +11,17 @@ import javax.swing.*;
 public class StartMenu extends Scene{
     
     Button startBtn;
+    MouseListener m;
     
     private static BufferedImage background;
     
     public StartMenu(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
         running = true;
+
+
+
+
     }
     
     @Override
@@ -118,6 +124,11 @@ public class StartMenu extends Scene{
     @Override
     public void tick() {
         handler.tick();
+
+        if (startBtn.isPressed()){
+            window.getCanvas().removeMouseListener(m);
+            running = false;
+        }
     }
     
     @Override
@@ -128,19 +139,15 @@ public class StartMenu extends Scene{
         startBtn = new Button(width / 2 - 50, 250, 100, 50, Color.LIGHT_GRAY);
         
         handler.addObj(startBtn);
+        m = new MouseInput(startBtn);
+        window.getCanvas().addMouseListener(m);
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
     
-        System.out.println("Pressed.");
-        int x = e.getX();
-        int y = e.getY();
-        
-        if (x > startBtn.getX() && x < startBtn.getX() + startBtn.getWidth() && y > startBtn.getY() &&
-        y < startBtn.getY() + startBtn.getHeight()) {
-            running = false;
-        }
+
+
     }
     
     @Override
