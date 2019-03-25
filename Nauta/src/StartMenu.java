@@ -136,7 +136,7 @@ public class StartMenu extends Scene{
         
         loadAssets();
         
-        startBtn = new Button(width / 2 - 50, 250, 100, 50, Color.LIGHT_GRAY);
+        startBtn = new Button(width / 2 - 80, 250, 160, 40, Color.LIGHT_GRAY, handler);
         
         handler.addObj(startBtn);
         m = new MouseInput(startBtn);

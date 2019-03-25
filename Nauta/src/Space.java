@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
@@ -7,16 +8,21 @@ import java.util.Random;
 public class Space extends Scene {
     
     private int counter;
+    private Ship ship;
     Random posx, size;
     
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
+
+        ship = new Ship(300, 300,50,50,Color.red, handler,10, window);
+
+
         running = true;
     }
     
     @Override
     public void loadAssets() {
-        background = ImageLoader.loadImage("backgrounds/space.jpg");
+        background = ImageLoader.loadImage("backgrounds/space.png");
     }
     
     @Override
@@ -108,11 +114,11 @@ public class Space extends Scene {
     @Override
     public void tick() {
     
-        if(counter >= 30){
+        if(counter >= 25){
             posx = new Random(System.currentTimeMillis());
             size = new Random(System.currentTimeMillis());
-            int s1 = size.nextInt(5)*10;
-            handler.addObj(new Asteroid(posx.nextInt(72)*10,0,s1,s1,Color.WHITE));
+            int s1 = size.nextInt(10)*10+20;
+            handler.addObj(new Asteroid(posx.nextInt(96)*10,0,s1,s1,Color.WHITE, handler));
         
             counter = 0;
         }
@@ -123,6 +129,11 @@ public class Space extends Scene {
     
     @Override
     public void sceneSetup() {
+        KeyListener k = new KeyInput(ship);
+        window.getCanvas().addKeyListener(k);
+
+        handler.addObj(ship);
+
         loadAssets();
     }
     
