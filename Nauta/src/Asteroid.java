@@ -3,9 +3,9 @@ import java.awt.*;
 
 public class Asteroid extends GameObject{
     
-    private int spd;
+    private int spd, counter, damage;
     private boolean dead;
-    private AnimationSprite ad;
+    private AnimationSprite ad, exp;
     
     
     public Asteroid(int x, int y, int width, int height, Color color, Handler handler){
@@ -14,6 +14,8 @@ public class Asteroid extends GameObject{
         Random r = new Random(System.currentTimeMillis());
         spd = r.nextInt(5)*1 + 10;
         dead = false;
+        counter = 0;
+        damage = 1;
 
 
         SpriteBuilder builder = new SpriteBuilder("Images/Asteroid/Asteroids_64x96.png", 32,32);
@@ -26,6 +28,22 @@ public class Asteroid extends GameObject{
         ad = new AnimationSprite(x, y, builder.build(),width,height);
         ad.setAnimSpd(5);
 
+        SpriteBuilder builder2 = new SpriteBuilder("Images/Asteroid/exp.png", 300,300);
+        builder2.addImage(0,0);
+        builder2.addImage(1,0);
+        builder2.addImage(2,0);
+        builder2.addImage(3,0);
+        builder2.addImage(4,0);
+        builder2.addImage(0,1);
+        builder2.addImage(1,1);
+        builder2.addImage(2,1);
+        builder2.addImage(3,1);
+        builder2.addImage(4,1);
+        builder2.addImage(0,2);
+        builder2.addImage(1,2);
+        exp = new AnimationSprite(x, y, builder2.build(),width,height);
+        exp.setAnimSpd(20);
+
 
 
         
@@ -33,15 +51,32 @@ public class Asteroid extends GameObject{
     
     public void tick(){
 
-        ad.setsX(x);
-        ad.setsY(y);
-        ad.update();
-        if (y <= 540){
-            y  += spd;
+
+        if (!dead){
+            ad.setsX(x);
+            ad.setsY(y);
+            ad.update();
+
+            if (y <= 540){
+                y  += spd;
+            }
+            else{
+                handler.objects.remove(this);
+            }
+        }else {
+            exp.setsX(x);
+            exp.setsY(y);
+            exp.update();
+
+
+
+            if (counter >= 40){
+                handler.objects.remove(this);
+            }
+            counter++;
+
         }
-        else{
-            handler.objects.remove(this);
-        }
+
 
 
     }
@@ -52,9 +87,12 @@ public class Asteroid extends GameObject{
     
     @Override
     public void paint(Graphics g) {
-        //g.setColor(color);
-        //g.fillOval(getX(),getY(),width,height);
-        ad.render(g);
+        if (!dead){
+            ad.render(g);
+        }else {
+            exp.render(g);
+        }
+
 
 
     }
@@ -66,6 +104,18 @@ public class Asteroid extends GameObject{
     public void setSpd(int spd) {
         this.spd = spd;
     }
+    public void toDeath(){
 
+        dead = true;
 
+    }
+    public void setDead(boolean dead){
+        damage = 0;
+        this.dead = dead;
+
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }

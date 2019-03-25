@@ -10,6 +10,7 @@ public class Ship extends Player {
     private double angle, px, py;
     private Window w;
     private BufferedImage img, imgL;
+    private AnimationSprite sh;
 
 
     public Ship(int x, int y, int width, int height, Color color, Handler handler, int life, Window w){
@@ -20,6 +21,19 @@ public class Ship extends Player {
     vx = 0;
     vy = 0;
     this.w = w;
+
+
+        SpriteBuilder builder = new SpriteBuilder("Images/Ship/ship.png", 128,128);
+        builder.addImage(1,0);
+        builder.addImage(4,0);
+        builder.addImage(0,1);
+        builder.addImage(2,1);
+
+
+
+
+        sh = new AnimationSprite(x, y, builder.build(),width,height);
+        sh.setAnimSpd(10);
 
     }
 
@@ -108,7 +122,7 @@ public class Ship extends Player {
         }
 
         if (key == 32){
-            Blaster b = new Blaster(x+(width/2)-4,y-10,20,20,Color.red,handler);
+            Blaster b = new Blaster(x+17,y-10,20,20,Color.red,handler);
             handler.addObj(b);
         }
 
@@ -117,19 +131,12 @@ public class Ship extends Player {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        AffineTransform at = AffineTransform.getTranslateInstance(x,y);
 
-
-
-        at.scale(.2,.2);
-
-        at.rotate(0,img.getWidth()/2,img.getHeight()/2);
 
         imgL = ImageLoader.loadImage("Images/Life/life_"+life+".png");
 
         g2d.drawImage(imgL,0,0,200,50,null);
-        g2d.drawImage(img,at, null);
-
+        sh.render(g);
     }
 
 
@@ -146,6 +153,10 @@ public class Ship extends Player {
             x -= vx;
             y -= vy;
         }
+
+        sh.setsX(x);
+        sh.setsY(y);
+        sh.update();
 
     }
 
@@ -166,14 +177,17 @@ public class Ship extends Player {
                 Rectangle ply = getBounds();
 
                 if (ply.intersects(ast)){
-                    handler.removeObj(aux);
+
+
 
                     if (life > 0){
-                        life -= 1;
+                        life -= ((Asteroid) aux).getDamage();
                     }
                     else{
 
                     }
+
+                    ((Asteroid) aux).setDead(true);
 
                 }
 
