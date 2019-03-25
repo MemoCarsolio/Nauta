@@ -117,7 +117,7 @@ public class Space extends Scene {
         if(counter >= 25){
             posx = new Random(System.currentTimeMillis());
             size = new Random(System.currentTimeMillis());
-            int s1 = size.nextInt(5)*10+20;
+            int s1 = size.nextInt(10)*10+20;
             handler.addObj(new Asteroid(posx.nextInt(96)*10,0,s1,s1,Color.WHITE, handler));
         
             counter = 0;

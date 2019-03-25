@@ -12,7 +12,7 @@ public class Asteroid extends GameObject{
         
         super(x,y, width,height,color, handler);
         Random r = new Random(System.currentTimeMillis());
-        spd = r.nextInt(5)+1;
+        spd = r.nextInt(5)*1 + 10;
         dead = false;
 
 
