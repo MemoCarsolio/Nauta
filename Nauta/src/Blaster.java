@@ -12,7 +12,7 @@ public class Blaster extends GameObject {
     public Blaster(int x, int y, int width, int height, Color color, Handler handler){
         super(x,y,width,height,color,handler);
         vx = 0;
-        vy = -6;
+        vy = -12;
         dead = false;
         SpriteBuilder builder = new SpriteBuilder("Images/Blaster/Bullet.png", 320,320);
         builder.addImage(0,0);
@@ -65,7 +65,7 @@ public class Blaster extends GameObject {
                 Rectangle ply = getBounds();
 
                 if (ply.intersects(ast)){
-                    handler.removeObj(aux);
+                    ((Asteroid) aux).setDead(true);
                     handler.removeObj(this);
 
 
