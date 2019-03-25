@@ -1,18 +1,22 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Button extends ObjectWInput {
     
     private boolean pressed;
+    private int imgn;
+    private BufferedImage img;
     
-    public Button(int x, int y, int width, int height, Color color) {
-        super(x, y, width, height, color);
+    public Button(int x, int y, int width, int height, Color color, Handler handler) {
+        super(x, y, width, height, color, handler);
+       
         pressed = false;
+        img = ImageLoader.loadImage("Images/Button/StartButton/1.png");
     }
     
     @Override
     public void paint(Graphics g) {
-        g.setColor(color);
-        g.fillOval(x, y,width,height);
+        g.drawImage(img, x,y,width,height,null);
     }
     
     @Override
@@ -31,16 +35,27 @@ public class Button extends ObjectWInput {
 
     @Override
     public void mouseClicked(int x, int y) {
-        pressed = true;
+
+
+
+
+
     }
 
     @Override
     public void mousePressed(int x, int y) {
-
+        if( x >= this.x && x <= this.x+width && y >= this.y && y <= this.y + height){
+            img = ImageLoader.loadImage("Images/Button/StartButton/2.png");
+        }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
+        if( x >= this.x && x <= this.x+width && y >= this.y && y <= this.y + height){
+            img = ImageLoader.loadImage("Images/Button/StartButton/1.png");
+            pressed = true;
+        }
+
 
     }
 
@@ -68,4 +83,6 @@ public class Button extends ObjectWInput {
     public void keyReleased(int key) {
 
     }
+
+
 }

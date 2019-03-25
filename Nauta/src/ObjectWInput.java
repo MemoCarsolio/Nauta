@@ -3,8 +3,8 @@ import java.awt.*;
 public abstract class ObjectWInput extends GameObject{
 
 
-    public ObjectWInput(int x, int y, int width, int height, Color color){
-        super(x,y,width,height, color);
+    public ObjectWInput(int x, int y, int width, int height, Color color, Handler handler){
+        super(x,y,width,height, color, handler);
     }
 
 

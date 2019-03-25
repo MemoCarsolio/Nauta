@@ -5,18 +5,19 @@ import java.awt.Rectangle;
 public abstract class GameObject {
     
     protected int x, y;
-    
+    protected Handler handler;
     protected int width, height;
     
     protected Color color;
     
-    public GameObject (int x, int y, int width, int height, Color color)
+    public GameObject (int x, int y, int width, int height, Color color, Handler handler)
     {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.handler = handler;
     }
     
     //Paint object.
