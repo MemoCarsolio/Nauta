@@ -11,6 +11,7 @@ public class Ship extends Player {
     private Window w;
     private BufferedImage img, imgL;
     private AnimationSprite sh;
+    private boolean isPaused;
 
 
     public Ship(int x, int y, int width, int height, Color color, Handler handler, int life, Window w){
@@ -21,6 +22,8 @@ public class Ship extends Player {
     vx = 0;
     vy = 0;
     this.w = w;
+    isPaused = false;
+
 
 
         SpriteBuilder builder = new SpriteBuilder("Images/Ship/ship.png", 128,128);
@@ -34,6 +37,12 @@ public class Ship extends Player {
 
         sh = new AnimationSprite(x, y, builder.build(),width,height);
         sh.setAnimSpd(10);
+
+    }
+
+    public void resetValues(){
+        life = 10;
+        isPaused = false;
 
     }
 
@@ -99,6 +108,9 @@ public class Ship extends Player {
             vy = 10;
         }
 
+        if (key == 27){
+        isPaused = true;
+        }
 
 
 
@@ -150,8 +162,7 @@ public class Ship extends Player {
             x += vx;
             y += vy;
         }else {
-            x -= vx;
-            y -= vy;
+            
         }
 
         sh.setsX(x);
@@ -218,7 +229,7 @@ public class Ship extends Player {
 
         angle = Math.toDegrees(Math.atan2(ydiff,xdiff));
 
-        System.out.println(angle);
+
 
         return angle;
 
@@ -227,5 +238,11 @@ public class Ship extends Player {
 
     }
 
+    public boolean isPaused() {
+        return isPaused;
+    }
 
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
 }

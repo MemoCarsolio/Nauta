@@ -9,12 +9,13 @@ public class Space extends Scene {
     
     private int counter;
     private Ship ship;
+    private KeyListener k;
     Random posx, size;
     
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
-
         ship = new Ship(300, 300,50,50,Color.red, handler,10, window);
+
 
 
         running = true;
@@ -58,6 +59,9 @@ public class Space extends Scene {
     
     @Override
     public void run() {
+        running = true;
+
+        ship.resetValues();
     
         sceneSetup();
     
@@ -108,7 +112,13 @@ public class Space extends Scene {
                 timer = 0;
             }
         }
+        removeObjects();
         
+    }
+
+    public void removeObjects(){
+        window.getCanvas().removeKeyListener(k);
+        handler.empty();
     }
     
     @Override
@@ -125,11 +135,16 @@ public class Space extends Scene {
         counter++;
         
         handler.tick();
+
+        if (ship.isPaused()){
+            change = 0;
+            running = false;
+        }
     }
     
     @Override
     public void sceneSetup() {
-        KeyListener k = new KeyInput(ship);
+        k = new KeyInput(ship);
         window.getCanvas().addKeyListener(k);
 
         handler.addObj(ship);
@@ -143,6 +158,8 @@ public class Space extends Scene {
     
     @Override
     public void mousePressed(MouseEvent e) {
+
+
     
     }
     

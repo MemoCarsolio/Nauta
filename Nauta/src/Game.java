@@ -11,6 +11,10 @@ public class Game implements Runnable{
     private Scene startMenu;
     private Scene space;
     private Scene planet;
+
+    //scenes changer.
+    private int change;
+
     
     //GameObject's handler.
     private Handler gameObjHandler;
@@ -27,15 +31,34 @@ public class Game implements Runnable{
         startMenu = new StartMenu(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         space = new Space(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         planet = new Planet(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
+
+        change = 0;
         
     }
     
     @Override
     public void run() {
+
+    while (change < 3) {
+        switch (change) {
+
+            case 0:
+                startMenu.run();
+                change = startMenu.getChange();
+                break;
+            case 1:
+                space.run();
+                change = space.getChange();
+                break;
+            case 2:
+                planet.run();
+                change = planet.getChange();
+                break;
+
+        }
+    }
         
-        startMenu.run();
-        space.run();
-        planet.run();
+
     }
     
     public void graphicsSetup(){

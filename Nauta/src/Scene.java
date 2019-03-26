@@ -18,6 +18,9 @@ public abstract class Scene implements MouseListener {
     protected Graphics g;
     protected JFrame frame;
     protected Window window;
+
+    //For scene Changing
+    protected int change;
     
     protected Scene(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window){
         this.width = width;
@@ -27,6 +30,8 @@ public abstract class Scene implements MouseListener {
         this.bs = bs;
         this.window = window;
         this.frame = this.window.getFrame();
+
+        change = 0;
     
         window.getCanvas().addMouseListener(this);
     
@@ -41,7 +46,15 @@ public abstract class Scene implements MouseListener {
     public abstract void tick();
     
     public abstract void sceneSetup();
-    
+
+    public int getChange() {
+        return change;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
+    }
+
     @Override
     public abstract void mouseClicked(MouseEvent e);
     
