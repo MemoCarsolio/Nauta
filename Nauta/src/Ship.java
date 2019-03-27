@@ -162,7 +162,7 @@ public class Ship extends Player {
             x += vx;
             y += vy;
         }else {
-            
+
         }
 
         sh.setsX(x);
