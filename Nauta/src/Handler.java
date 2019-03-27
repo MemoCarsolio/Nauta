@@ -50,4 +50,16 @@ public class Handler {
     {
         this.objects.remove(obj);
     }
+
+    public void empty(){
+        ListIterator <GameObject> iterator = objects.listIterator();
+
+        while (iterator.hasNext())
+        {
+            GameObject aux = iterator.next();
+            objects.remove(aux);
+        }
+    }
+
+
 }

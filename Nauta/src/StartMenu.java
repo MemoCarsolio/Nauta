@@ -126,6 +126,7 @@ public class StartMenu extends Scene{
         handler.tick();
 
         if (startBtn.isPressed()){
+            change = 1;
             window.getCanvas().removeMouseListener(m);
             running = false;
         }
@@ -133,6 +134,7 @@ public class StartMenu extends Scene{
     
     @Override
     public void sceneSetup() {
+        running = true;
         
         loadAssets();
         
