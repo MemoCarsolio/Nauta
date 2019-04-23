@@ -1,32 +1,29 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.swing.*;
 
-public class StartMenu extends Scene{
+public class Pause extends Scene {
     
-    Button startBtn;
+    //Image of the current gameplay in the instant where the game is paused.
+    private BufferedImage background;
+    private BufferedImage gradient;
+    private Button pauseBtn;
     MouseListener m;
     
-    private static BufferedImage background;
-    
-    public StartMenu(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
+    protected Pause(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window, BufferedImage gameImage) {
         super(width, height, handler, g, bs, window);
+        background = gameImage;
     }
     
     @Override
     public void loadAssets() {
-        background = ImageLoader.loadImage("backgrounds/menu.jpg");
+        gradient = ImageLoader.loadImage("backgrounds/gradient.png");
     }
     
     @Override
     public void render() {
-    
         bs = window.getCanvas().getBufferStrategy();
     
         //If canvas doesn't have a BufferStrategy.
@@ -36,7 +33,7 @@ public class StartMenu extends Scene{
             window.getCanvas().createBufferStrategy(3);
             return;
         }
-        
+    
         //Get whatever is drawn in BufferStrategy
         g = bs.getDrawGraphics();
     
@@ -45,6 +42,9 @@ public class StartMenu extends Scene{
     
         //Draw background.
         g.drawImage(background, 0, 0, width, height, null);
+    
+        //Draw gradient.
+        g.drawImage(gradient, 0, 0, width, height, null);
     
         //Draw objects contained in handler.
         handler.render(g);
@@ -58,7 +58,7 @@ public class StartMenu extends Scene{
     
     @Override
     public void run() {
-        
+    
         sceneSetup();
     
         //Set the frames per second and initialize the ticks count.
@@ -88,7 +88,7 @@ public class StartMenu extends Scene{
             //If its time to tick.
             if (delta >= timePerTick)
             {
-                
+            
                 tick();
                 render();
             
@@ -108,20 +108,19 @@ public class StartMenu extends Scene{
                 timer = 0;
             }
         }
-        
+    
         removeObjects();
     }
     
     private void removeObjects() {
-        handler.removeObj(startBtn);
+        handler.removeObj(pauseBtn);
     }
     
     @Override
     public void tick() {
-        handler.tick();
-
-        if (startBtn.isPressed()){
-            change = 1;
+        //handler.tick();
+    
+        if (pauseBtn.isPressed()){
             window.getCanvas().removeMouseListener(m);
             running = false;
         }
@@ -133,18 +132,16 @@ public class StartMenu extends Scene{
         
         loadAssets();
         
-        startBtn = new Button(width / 2 - 80, 250, 160, 40, Color.LIGHT_GRAY, handler);
-        
-        handler.addObj(startBtn);
-        m = new MouseInput(startBtn);
+        pauseBtn = new Button(width / 2 - 80, 250, 160, 40, Color.LIGHT_GRAY, handler);
+    
+        handler.addObj(pauseBtn);
+        m = new MouseInput(pauseBtn);
         window.getCanvas().addMouseListener(m);
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
     
-
-
     }
     
     @Override

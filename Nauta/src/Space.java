@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Space extends Scene {
@@ -11,6 +12,9 @@ public class Space extends Scene {
     private Ship ship;
     private KeyListener k;
     Random posx, size;
+    
+    private Scene pause;
+    BufferedImage capturedBg;
     
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
@@ -76,7 +80,14 @@ public class Space extends Scene {
     
         while (running)
         {
-        
+            
+            if(ship.isPaused()){
+                System.out.println("Paused");
+                pause = new Pause(width, height, handler, g, bs, window, background);
+                pause.run();
+                ship.setPaused(false);
+            }
+            
             //Get now time.
             now = System.nanoTime();
         
@@ -137,8 +148,8 @@ public class Space extends Scene {
         handler.tick();
 
         if (ship.isPaused()){
-            change = 0;
-            running = false;
+            //change = 0;
+            //running = false;
         }
     }
     
