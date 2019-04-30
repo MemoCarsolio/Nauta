@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Space extends Scene {
     
-    private int counter;
+    private int counter, counter2;
     private Ship ship;
     private KeyListener k;
     Random posx, size;
@@ -19,8 +19,6 @@ public class Space extends Scene {
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
         ship = new Ship(300, 300,50,50,Color.red, handler,10, window);
-
-
 
         running = true;
     }
@@ -135,7 +133,7 @@ public class Space extends Scene {
     @Override
     public void tick() {
     
-        if(counter >= 25){
+        if(counter >= 20){
             posx = new Random(System.currentTimeMillis());
             size = new Random(System.currentTimeMillis());
             int s1 = size.nextInt(10)*10+20;
@@ -144,13 +142,20 @@ public class Space extends Scene {
             counter = 0;
         }
         counter++;
-        
+
+        if (counter2 >= 5000){
+            running = false;
+            change = 2;
+        }
+        counter2++;
         handler.tick();
 
-        if (ship.isPaused()){
-            //change = 0;
-            //running = false;
+        if(ship.isDead()){
+            change = 0;
+            running = false;
         }
+
+
     }
     
     @Override

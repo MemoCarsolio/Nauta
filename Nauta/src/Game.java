@@ -14,7 +14,7 @@ public class Game implements Runnable{
     private Scene transition1;
     private Scene transition2;
     private Scene transition3;
-    
+    private Scene transition4;
 
     //scenes changer.
     private int change;
@@ -36,8 +36,7 @@ public class Game implements Runnable{
         space = new Space(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         planet = new Planet(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         
-        String transText1 = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
-                                    "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        String transText1 = "Mision failed";
         transition1 = new Transition(transText1, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition1.setChange(2);
         
@@ -50,7 +49,12 @@ public class Game implements Runnable{
                                     "consequat nec. Nunc tristique eros ut condimentum aliquet.";
         transition3 = new Transition(transText3, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition3.setChange(-1);
-        
+
+
+        String transText4 = "Game over";
+        transition4 = new Transition(transText4, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
+        transition4.setChange(0);
+
         change = 0;
         
     }
@@ -84,6 +88,10 @@ public class Game implements Runnable{
             case 5:
                 transition3.run();
                 change = transition3.getChange();
+                break;
+            case 6:
+                transition4.run();
+                change = transition4.getChange();
                 break;
             default:
                 break;
