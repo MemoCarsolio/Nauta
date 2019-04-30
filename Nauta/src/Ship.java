@@ -11,7 +11,7 @@ public class Ship extends Player {
     private Window w;
     private BufferedImage img, imgL;
     private AnimationSprite sh;
-    private boolean isPaused, isDead;
+    private boolean isPaused, isDead, isHit;
 
 
     public Ship(int x, int y, int width, int height, Color color, Handler handler, int life, Window w){
@@ -204,6 +204,7 @@ public class Ship extends Player {
                     }
 
                     ((Asteroid) aux).setDead(true);
+                    isHit = true;
 
                 }
 
@@ -253,5 +254,13 @@ public class Ship extends Player {
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+
+    public boolean isHit() {
+        return isHit;
+    }
+
+    public void setHit(boolean hit) {
+        isHit = hit;
     }
 }

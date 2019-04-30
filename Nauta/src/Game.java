@@ -36,11 +36,12 @@ public class Game implements Runnable{
         space = new Space(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         planet = new Planet(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         
-        String transText1 = "Mision failed";
+        String transText1 = "Level 1 \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
+                "consequat nec. Nunc tristique eros ut condimentum aliquet.";
         transition1 = new Transition(transText1, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition1.setChange(2);
         
-        String transText2 = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
+        String transText2 = " Level 2 \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
                                     "consequat nec. Nunc tristique eros ut condimentum aliquet.";
         transition2 = new Transition(transText2, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition2.setChange(4);
@@ -62,7 +63,7 @@ public class Game implements Runnable{
     @Override
     public void run() {
 
-    while (change < 3) {
+    while (change <= 6) {
         switch (change) {
 
             case 0:
@@ -90,6 +91,7 @@ public class Game implements Runnable{
                 change = transition3.getChange();
                 break;
             case 6:
+                System.out.println("we got here");
                 transition4.run();
                 change = transition4.getChange();
                 break;
