@@ -8,9 +8,10 @@ import java.util.Random;
 
 public class Space extends Scene {
     
-    private int counter, counter2;
+    private int counter, counter2, counter3;
     private Ship ship;
     private KeyListener k;
+    private Boolean play;
     Random posx, size;
     
     private Scene pause;
@@ -19,8 +20,9 @@ public class Space extends Scene {
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
         ship = new Ship(300, 300,50,50,Color.red, handler,10, window);
-
+        play = false;
         running = true;
+        
     }
     
     @Override
@@ -132,34 +134,56 @@ public class Space extends Scene {
     
     @Override
     public void tick() {
+
+        if (play){
+
+            if(counter >= 10){
+                posx = new Random(System.currentTimeMillis());
+                size = new Random(System.currentTimeMillis());
+                int s1 = size.nextInt(10)*15+30;
+                handler.addObj(new Asteroid(posx.nextInt(96)*10,-30,s1,s1,Color.WHITE, handler));
+
+                counter = 0;
+            }
+            counter++;
+
+            if (counter2 >= 2000){
+                change = 3;
+                play = false;
+            }
+            counter2++;
+            handler.tick();
+
+            if(ship.isDead()){
+                change = 6;
+                running = false;
+            }
+        }
+        else{
+            if (counter3 == 100){
+                handler.addObj(new Asteroid(0,-width,width,width,Color.WHITE, handler,0,1));
+                ship.setHit(false);
+            }
+            counter3++;
+            if (ship.isHit() && counter3 >100){
+                running = false;
+            }
+            handler.tick();
+
+
+        }
+
     
-        if(counter >= 20){
-            posx = new Random(System.currentTimeMillis());
-            size = new Random(System.currentTimeMillis());
-            int s1 = size.nextInt(10)*10+20;
-            handler.addObj(new Asteroid(posx.nextInt(96)*10,0,s1,s1,Color.WHITE, handler));
-        
-            counter = 0;
-        }
-        counter++;
 
-        if (counter2 >= 5000){
-            running = false;
-            change = 2;
-        }
-        counter2++;
-        handler.tick();
-
-        if(ship.isDead()){
-            change = 0;
-            running = false;
-        }
 
 
     }
     
     @Override
     public void sceneSetup() {
+        counter2 = 0;
+        counter3 = 0;
+        play = true;
         k = new KeyInput(ship);
         window.getCanvas().addKeyListener(k);
 

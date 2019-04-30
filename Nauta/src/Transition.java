@@ -149,7 +149,7 @@ public class Transition extends Scene{
     @Override
     public void tick() {
         if (skipBtn.isPressed()){
-            change = 2;
+
             window.getCanvas().removeMouseListener(m);
             running = false;
         }
