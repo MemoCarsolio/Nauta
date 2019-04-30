@@ -11,6 +11,10 @@ public class Game implements Runnable{
     private Scene startMenu;
     private Scene space;
     private Scene planet;
+    private Scene transition1;
+    private Scene transition2;
+    private Scene transition3;
+    
 
     //scenes changer.
     private int change;
@@ -31,7 +35,22 @@ public class Game implements Runnable{
         startMenu = new StartMenu(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         space = new Space(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         planet = new Planet(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
-
+        
+        String transText1 = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
+                                    "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        transition1 = new Transition(transText1, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
+        transition1.setChange(2);
+        
+        String transText2 = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
+                                    "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        transition2 = new Transition(transText2, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
+        transition2.setChange(4);
+    
+        String transText3 = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
+                                    "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        transition3 = new Transition(transText3, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
+        transition3.setChange(-1);
+        
         change = 0;
         
     }
@@ -47,14 +66,27 @@ public class Game implements Runnable{
                 change = startMenu.getChange();
                 break;
             case 1:
+                transition1.run();
+                change = transition1.getChange();
+                break;
+            case 2:
                 space.run();
                 change = space.getChange();
                 break;
-            case 2:
+            case 3:
+                transition2.run();
+                change = transition2.getChange();
+                break;
+            case 4:
                 planet.run();
                 change = planet.getChange();
                 break;
-
+            case 5:
+                transition3.run();
+                change = transition3.getChange();
+                break;
+            default:
+                break;
         }
     }
         
