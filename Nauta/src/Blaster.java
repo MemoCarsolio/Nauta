@@ -65,8 +65,11 @@ public class Blaster extends GameObject {
                 Rectangle ply = getBounds();
 
                 if (ply.intersects(ast)){
-                    ((Asteroid) aux).setDead(true);
-                    handler.removeObj(this);
+                    if (((Asteroid) aux).getDamage() != 0){
+                        ((Asteroid) aux).setDead(true);
+                        handler.removeObj(this);
+                    }
+
 
 
                 }

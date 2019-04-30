@@ -203,7 +203,10 @@ public class Ship extends Player {
 
                     }
 
-                    ((Asteroid) aux).setDead(true);
+                    if (((Asteroid) aux).getDamage() != 0){
+                        ((Asteroid) aux).setDead(true);
+                    }
+
                     isHit = true;
 
                 }
