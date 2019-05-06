@@ -113,16 +113,16 @@ public class Transition extends Scene{
                 delta = 0;
             }
             
-            if (textIndex == 2){
+            /*if (textIndex == 2){
                 try{
                     Thread.sleep(1000);
                 } catch (InterruptedException e){
         
                 }
-            }
+            }*/
             
             //Increase the number of characters displayed.
-            if(textTimer >= 120000000){
+            if(textTimer >= 60000000){
                 if (textIndex < text.length()){
                     textIndex ++;
                 }

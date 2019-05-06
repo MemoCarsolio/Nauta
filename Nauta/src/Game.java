@@ -36,13 +36,17 @@ public class Game implements Runnable{
         space = new Space(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         planet = new Planet(WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         
-        String transText1 = "Level 1 \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
-                "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        String transText1 = "                                       Level 1                                                 " +
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend " +
+            "metus consequat nec. Nunc tristique eros ut condimentum aliquet.";
         transition1 = new Transition(transText1, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition1.setChange(2);
         
-        String transText2 = " Level 2 \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend metus " +
-                                    "consequat nec. Nunc tristique eros ut condimentum aliquet.";
+        String transText2 = "                                       Level 2                                                 " +
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur tempus nunc, vel eleifend " +
+            "metus consequat nec. Nunc tristique eros ut condimentum aliquet.";
+            
+            
         transition2 = new Transition(transText2, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition2.setChange(4);
     
@@ -52,7 +56,7 @@ public class Game implements Runnable{
         transition3.setChange(-1);
 
 
-        String transText4 = "Game over";
+        String transText4 = "                                       Game over";
         transition4 = new Transition(transText4, WIDTH, HEIGHT, gameObjHandler, g, bs, window);
         transition4.setChange(0);
 
