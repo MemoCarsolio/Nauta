@@ -24,6 +24,7 @@ public class Transition extends Scene{
         super(width, height, handler, g, bs, window);
         this.text = text;
         textIndex = 1;
+
     }
     
     @Override
@@ -69,6 +70,7 @@ public class Transition extends Scene{
     
     @Override
     public void run() {
+        AudioPlayer.get().playBackMusic("audio/st");
         sceneSetup();
     
         //Set the frames per second and initialize the ticks count.
@@ -138,11 +140,12 @@ public class Transition extends Scene{
                 timer = 0;
             }
         }
-    
+        AudioPlayer.get().stopBackMusic();
         removeObjects();
     }
     
     private void removeObjects() {
+
         handler.removeObj(skipBtn);
     }
     

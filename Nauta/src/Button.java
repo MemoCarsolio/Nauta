@@ -52,6 +52,7 @@ public class Button extends ObjectWInput {
     public void mousePressed(int x, int y) {
         if( x >= this.x && x <= this.x+width && y >= this.y && y <= this.y + height){
             img = ImageLoader.loadImage("Images/Button/"+ s2 + ".png");
+            AudioPlayer.get().playEffectSound("audio/bt");
         }
     }
 

@@ -1,3 +1,5 @@
+import com.sun.media.sound.AuFileReader;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,7 @@ public class StartMenu extends Scene{
     
     public StartMenu(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
+
     }
     
     @Override
@@ -58,6 +61,9 @@ public class StartMenu extends Scene{
     
     @Override
     public void run() {
+
+        AudioPlayer.get().setMusicVol(0.8f);
+        AudioPlayer.get().playBackMusic("audio/ss");
         
         sceneSetup();
     
@@ -108,11 +114,12 @@ public class StartMenu extends Scene{
                 timer = 0;
             }
         }
-        
+        AudioPlayer.get().stopBackMusic();
         removeObjects();
     }
     
     private void removeObjects() {
+
         handler.removeObj(startBtn);
         handler.removeObj(quitBtn);
     }
@@ -125,11 +132,13 @@ public class StartMenu extends Scene{
             change = 1;
             window.getCanvas().removeMouseListener(s);
             running = false;
+            AudioPlayer.get().stopBackMusic();
         }
         if (quitBtn.isPressed()){
             change = 7;
             window.getCanvas().removeMouseListener(q);
             running = false;
+            AudioPlayer.get().stopBackMusic();
         }
     }
     

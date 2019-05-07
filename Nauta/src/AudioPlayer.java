@@ -15,8 +15,8 @@ public class AudioPlayer {
 
     private AudioPlayer(){
 
-        musicVol = 0.1f;
-        effectVol = 0.1f;
+        musicVol = 0.7f;
+        effectVol = 0.7f;
 
         audios = new HashMap<String, Clip>();
 
