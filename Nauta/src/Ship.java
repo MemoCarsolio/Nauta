@@ -141,6 +141,7 @@ public class Ship extends Player {
         if (key == 32){
             Blaster b = new Blaster(x+17,y-10,20,20,Color.red,handler);
             handler.addObj(b);
+            AudioPlayer.get().playEffectSound("audio/blaster");
         }
 
     }
@@ -206,6 +207,7 @@ public class Ship extends Player {
 
                     if (((Asteroid) aux).getDamage() != 0){
                         ((Asteroid) aux).setDead(true);
+                        AudioPlayer.get().playEffectSound("audio/explosion");
                     }
 
                     isHit = true;

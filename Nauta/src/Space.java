@@ -22,7 +22,9 @@ public class Space extends Scene {
         ship = new Ship((width/2)-25, 350,50,50,Color.red, handler,10, window);
         play = false;
         running = true;
-        
+
+        AudioPlayer.get().setMusicVol(0.8f);
+
     }
     
     @Override
