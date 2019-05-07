@@ -161,7 +161,7 @@ public class Transition extends Scene{
     
         loadAssets();
     
-        skipBtn = new Button(10, 460, 160, 40, Color.LIGHT_GRAY, handler);
+        skipBtn = new Button(10, 460, 160, 40, Color.LIGHT_GRAY, handler, "skip1", "skip2");
     
         handler.addObj(skipBtn);
         m = new MouseInput(skipBtn);

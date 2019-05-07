@@ -41,13 +41,14 @@ public class Ship extends Player {
 
     }
 
-    public void resetValues(){
+    public void resetValues(int w){
         life = 10;
         isPaused = false;
         isDead = false;
         vx = 0;
         vy = 0;
-
+        x = (w/2)-25;
+        y = 400;
     }
 
     @Override

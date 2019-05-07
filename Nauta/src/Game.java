@@ -95,15 +95,15 @@ public class Game implements Runnable{
                 change = transition3.getChange();
                 break;
             case 6:
-                System.out.println("we got here");
                 transition4.run();
                 change = transition4.getChange();
                 break;
+
             default:
                 break;
         }
     }
-        
+        System.exit(0);
 
     }
     
