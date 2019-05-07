@@ -10,8 +10,8 @@ import javax.swing.*;
 
 public class StartMenu extends Scene{
     
-    Button startBtn;
-    MouseListener m;
+    Button startBtn, quitBtn;
+    MouseListener s, q;
     
     private static BufferedImage background;
     
@@ -114,6 +114,7 @@ public class StartMenu extends Scene{
     
     private void removeObjects() {
         handler.removeObj(startBtn);
+        handler.removeObj(quitBtn);
     }
     
     @Override
@@ -122,7 +123,12 @@ public class StartMenu extends Scene{
 
         if (startBtn.isPressed()){
             change = 1;
-            window.getCanvas().removeMouseListener(m);
+            window.getCanvas().removeMouseListener(s);
+            running = false;
+        }
+        if (quitBtn.isPressed()){
+            change = 7;
+            window.getCanvas().removeMouseListener(q);
             running = false;
         }
     }
@@ -133,11 +139,14 @@ public class StartMenu extends Scene{
         
         loadAssets();
         
-        startBtn = new Button(width / 2 - 80, 250, 160, 40, Color.LIGHT_GRAY, handler);
-        
+        startBtn = new Button(width / 2 - 80, 250, 200, 80, Color.LIGHT_GRAY, handler, "start1", "start2");
+        quitBtn = new Button(width / 2 - 80, 320, 200, 80, Color.LIGHT_GRAY, handler, "quit1", "quit2");
         handler.addObj(startBtn);
-        m = new MouseInput(startBtn);
-        window.getCanvas().addMouseListener(m);
+        handler.addObj(quitBtn);
+        q = new MouseInput(quitBtn);
+        s = new MouseInput(startBtn);
+        window.getCanvas().addMouseListener(s);
+        window.getCanvas().addMouseListener(q);
     }
     
     @Override

@@ -6,12 +6,18 @@ public class Button extends ObjectWInput {
     private boolean pressed;
     private int imgn;
     private BufferedImage img;
+    private String s1, s2;
+
+
     
-    public Button(int x, int y, int width, int height, Color color, Handler handler) {
+    public Button(int x, int y, int width, int height, Color color, Handler handler, String s1, String s2) {
         super(x, y, width, height, color, handler);
        
         pressed = false;
-        img = ImageLoader.loadImage("Images/Button/StartButton/1.png");
+        this.s1 = s1;
+        this.s2 = s2;
+
+        img = ImageLoader.loadImage("Images/Button/"+ this.s1 + ".png");
     }
     
     @Override
@@ -45,14 +51,14 @@ public class Button extends ObjectWInput {
     @Override
     public void mousePressed(int x, int y) {
         if( x >= this.x && x <= this.x+width && y >= this.y && y <= this.y + height){
-            img = ImageLoader.loadImage("Images/Button/StartButton/2.png");
+            img = ImageLoader.loadImage("Images/Button/"+ s2 + ".png");
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
         if( x >= this.x && x <= this.x+width && y >= this.y && y <= this.y + height){
-            img = ImageLoader.loadImage("Images/Button/StartButton/1.png");
+            img = ImageLoader.loadImage("Images/Button/"+ s1 + ".png");
             pressed = true;
         }
 

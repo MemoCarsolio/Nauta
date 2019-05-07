@@ -9,11 +9,13 @@ public class Pause extends Scene {
     //Image of the current gameplay in the instant where the game is paused.
     private BufferedImage background;
     private BufferedImage gradient;
-    private Button pauseBtn;
-    MouseListener m;
+    private Button pauseBtn, returnBtn;
+    MouseListener m, r;
+    private boolean run;
     
     protected Pause(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window, BufferedImage gameImage) {
         super(width, height, handler, g, bs, window);
+        run = true;
         background = gameImage;
     }
     
@@ -114,6 +116,7 @@ public class Pause extends Scene {
     
     private void removeObjects() {
         handler.removeObj(pauseBtn);
+        handler.removeObj(returnBtn);
     }
     
     @Override
@@ -124,6 +127,11 @@ public class Pause extends Scene {
             window.getCanvas().removeMouseListener(m);
             running = false;
         }
+        if (returnBtn.isPressed()){
+            window.getCanvas().removeMouseListener(r);
+            run = false;
+            running = false;
+        }
     }
     
     @Override
@@ -132,35 +140,48 @@ public class Pause extends Scene {
         
         loadAssets();
         
-        pauseBtn = new Button(width / 2 - 80, 250, 160, 40, Color.LIGHT_GRAY, handler);
-    
+        pauseBtn = new Button(width / 2 - 80, 250, 200, 80, Color.LIGHT_GRAY, handler, "con1","con2");
+        returnBtn = new Button(width / 2 - 80, 320, 200, 80, Color.LIGHT_GRAY, handler, "return1","return2");
+
         handler.addObj(pauseBtn);
+        handler.addObj(returnBtn);
         m = new MouseInput(pauseBtn);
+        r = new MouseInput(returnBtn);
         window.getCanvas().addMouseListener(m);
+        window.getCanvas().addMouseListener(r);
     }
-    
+
+
+    public boolean isRun() {
+        return run;
+    }
+
+    public void setRun(boolean run) {
+        this.run = run;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mousePressed(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseReleased(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseEntered(MouseEvent e) {
-    
+
     }
-    
+
     @Override
     public void mouseExited(MouseEvent e) {
-    
+
     }
 }

@@ -14,12 +14,12 @@ public class Space extends Scene {
     private Boolean play;
     Random posx, size;
     
-    private Scene pause;
+    private Pause pause;
     BufferedImage capturedBg;
     
     protected Space(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
-        ship = new Ship(300, 300,50,50,Color.red, handler,10, window);
+        ship = new Ship((width/2)-25, 350,50,50,Color.red, handler,10, window);
         play = false;
         running = true;
         
@@ -65,8 +65,8 @@ public class Space extends Scene {
     public void run() {
         running = true;
 
-        ship.resetValues();
-    
+        ship.resetValues(width);
+
         sceneSetup();
     
         //Set the frames per second and initialize the ticks count.
@@ -86,6 +86,7 @@ public class Space extends Scene {
                 pause = new Pause(width, height, handler, g, bs, window, background);
                 pause.run();
                 ship.setPaused(false);
+                running = pause.isRun();
             }
             
             //Get now time.
@@ -135,7 +136,10 @@ public class Space extends Scene {
     @Override
     public void tick() {
 
+
+
         if (play){
+
 
             if(counter >= 10){
                 posx = new Random(System.currentTimeMillis());
