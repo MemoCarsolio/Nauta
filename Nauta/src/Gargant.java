@@ -13,7 +13,7 @@ public class Gargant extends GameObject {
     public Gargant(int x, int y, int width, int height, Color color, Handler handler, int xNauta, int yNauta) {
         super(x, y, width, height, color, handler);
         rGen = new Random(System.currentTimeMillis());
-        spd = 10;
+        spd = 2;
         dead = false;
         counter = 0;
         damage = 1;
@@ -22,13 +22,9 @@ public class Gargant extends GameObject {
         
         SpriteBuilder moveBuilder = new SpriteBuilder("Images/Gargant/gargant-berserker-move.png", 64, 64);
         moveBuilder.addImage(0, 0);
-        moveBuilder.addImage(1, 0);
         moveBuilder.addImage(2, 0);
-        moveBuilder.addImage(3, 0);
         moveBuilder.addImage(4, 0);
-        moveBuilder.addImage(5, 0);
-        moveBuilder.addImage(6, 0);
-        moveBuilder.addImage(7, 0);
+        moveBuilder.addImage(2, 0);
         
         mv = new AnimationSprite(x, y, moveBuilder.build(), width, height);
         mv.setAnimSpd(5);
@@ -41,17 +37,17 @@ public class Gargant extends GameObject {
         attackBuilder.addImage(4, 0);
         
         atk = new AnimationSprite(x, y, attackBuilder.build(), width, height);
-        atk.setAnimSpd(5);
+        atk.setAnimSpd(1);
     }
     
     @Override
     public void paint(Graphics g) {
         if (!dead & !attacking){
             System.out.println("Moving");
-            mv.update();
+            mv.render(g);
         } else if (!dead & attacking){
             System.out.println("Attacking");
-            atk.update();
+            atk.render(g);
         }
     }
     
