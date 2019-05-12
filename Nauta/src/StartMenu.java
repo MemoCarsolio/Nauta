@@ -129,7 +129,7 @@ public class StartMenu extends Scene{
         handler.tick();
 
         if (startBtn.isPressed()){
-            change = 1;
+            change = 4;
             window.getCanvas().removeMouseListener(s);
             running = false;
             AudioPlayer.get().stopBackMusic();
