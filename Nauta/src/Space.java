@@ -138,8 +138,6 @@ public class Space extends Scene {
     @Override
     public void tick() {
 
-
-
         if (play){
 
 
@@ -178,11 +176,7 @@ public class Space extends Scene {
 
 
         }
-
-    
-
-
-
+        
     }
     
     @Override

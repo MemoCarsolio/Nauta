@@ -1,12 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.ListIterator;
+import java.util.Random;
 
 public class Planet extends Scene {
     
+    private int counter, counter2, counter3;
+    private Ship ship;
+    private KeyListener k;
+    private Boolean play;
+    Random rGen;
+    int posx, posy;
+    int xNauta, yNauta;
+    
+    private Pause pause;
+    BufferedImage capturedBg;
+    
     protected Planet(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
+        ship = new Ship((width/2)-25, 350, 50, 50, Color.red, handler, 10, window);
+        play = false;
+        running = true;
+        
+        AudioPlayer.get().setMusicVol(0.8f);
     }
     
     @Override
@@ -47,6 +67,10 @@ public class Planet extends Scene {
     
     @Override
     public void run() {
+        running = true;
+        
+        ship.resetValues(width);
+        
         sceneSetup();
     
         //Set the frames per second and initialize the ticks count.
@@ -60,6 +84,13 @@ public class Planet extends Scene {
     
         while (running)
         {
+            if (ship.isPaused()){
+                System.out.println("Paused");
+                pause = new Pause(width, height, handler, g, bs, window, background);
+                pause.run();
+                ship.setPaused(false);
+                running = pause.isRun();
+            }
         
             //Get now time.
             now = System.nanoTime();
@@ -96,15 +127,61 @@ public class Planet extends Scene {
                 timer = 0;
             }
         }
+        removeObjects();
+    }
+    
+    public void removeObjects(){
+        window.getCanvas().removeKeyListener(k);
+        handler.empty();
+    }
+    
+    public void updateGargants(){
+        ListIterator<GameObject> iterator = handler.objects.listIterator();
+    
+        while (iterator.hasNext())
+        {
+            GameObject obj = iterator.next();
+            if (obj instanceof Gargant){
+                ((Gargant) obj).updateNauta(xNauta, yNauta);
+            }
+        }
     }
     
     @Override
     public void tick() {
-        handler.tick();
+        
+        if(play){
+            
+            if (counter >= 40){
+                 posx = rGen.nextInt(96) * 10;
+                 posy = rGen.nextInt(54) * 10;
+                 xNauta = ship.getX();
+                 yNauta = ship.getY();
+                 handler.addObj(new Gargant(posx, posy, 120, 120, Color.white, handler, xNauta, yNauta));
+                 counter = 0;
+            }
+            
+            counter ++;
+            updateGargants();
+            handler.tick();
+            
+            if (ship.isDead()){
+                change = 6;
+                running = false;
+            }
+            
+        }
     }
     
     @Override
     public void sceneSetup() {
+        rGen = new Random(System.currentTimeMillis());
+        play = true;
+        k = new KeyInput(ship);
+        window.getCanvas().addKeyListener(k);
+        
+        handler.addObj(ship);
+        
         loadAssets();
     }
     
