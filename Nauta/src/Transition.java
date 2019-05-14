@@ -142,6 +142,7 @@ public class Transition extends Scene{
         }
         AudioPlayer.get().stopBackMusic();
         removeObjects();
+        reset();
     }
     
     private void removeObjects() {
@@ -195,6 +196,9 @@ public class Transition extends Scene{
         }
     }
     
+    public void reset(){
+        textIndex = 1;
+    }
     
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -6,22 +6,30 @@ import java.util.ListIterator;
 public class Blaster extends GameObject {
 
     private int vx, vy;
-    private AnimationSprite bl;
+    private AnimationSprite blV;
+    private AnimationSprite blH;
     private boolean dead;
+    private int direction;
 
-    public Blaster(int x, int y, int width, int height, Color color, Handler handler){
+    public Blaster(int direction, int x, int y, int vx, int vy, int width, int height, Color color, Handler handler){
         super(x,y,width,height,color,handler);
-        vx = 0;
-        vy = -12;
+        this.vx = vx;
+        this.vy = vy;
+        this.direction = direction;
         dead = false;
-        SpriteBuilder builder = new SpriteBuilder("Images/Blaster/Bullet.png", 320,320);
-        builder.addImage(0,0);
-        builder.addImage(0,1);
-        builder.addImage(1,0);
-        builder.addImage(1,1);
-        bl = new AnimationSprite(x, y, builder.build(),width,height);
-        bl.setAnimSpd(5);
-
+        
+        SpriteBuilder builderV = new SpriteBuilder("Images/Blaster/Bullet.png", 320,320);
+        builderV.addImage(0,0);
+        builderV.addImage(0,1);
+        builderV.addImage(1,0);
+        builderV.addImage(1,1);
+        blV = new AnimationSprite(x, y, builderV.build(),width,height);
+        blV.setAnimSpd(5);
+    
+        SpriteBuilder builderH = new SpriteBuilder("Images/Blaster/BulletH.png", 320,320);
+        builderH.addImage(1,1);
+        blH = new AnimationSprite(x, y, builderH.build(),width,height);
+        blH.setAnimSpd(5);
 
     }
 
@@ -31,7 +39,11 @@ public class Blaster extends GameObject {
 
         //g.setColor(color);
         //g.fillOval(getX(),getY(),width,height);
-        bl.render(g);
+        if (direction == 1 || direction == 3){
+            blV.render(g);
+        } else {
+            blH.render(g);
+        }
     }
 
 
@@ -39,27 +51,35 @@ public class Blaster extends GameObject {
     public void tick() {
 
         checkCollision();
-
-        bl.setsX(x);
-        bl.setsY(y);
-        bl.update();
+    
+        if (direction == 1 || direction == 3){
+            blV.setsX(x);
+            blV.setsY(y);
+            blV.update();
+        } else {
+            blH.setsX(x);
+            blH.setsY(y);
+            blH.update();
+        }
 
         if (y+vy >= 0) {
             y += vy;
         }else {
-
            handler.objects.remove(this);
 
         }
 
-
+        x += vx;
     }
 
     public void checkCollision(){
 
         ListIterator <GameObject> iterator =  handler.objects.listIterator();
+        
         while (iterator.hasNext()){
+            
             GameObject aux = iterator.next();
+            
             if (aux instanceof Asteroid){
                 Rectangle ast = aux.getBounds();
                 Rectangle ply = getBounds();
@@ -70,8 +90,18 @@ public class Blaster extends GameObject {
                         handler.removeObj(this);
                     }
 
-
-
+                }
+            } else if (aux instanceof Gargant){
+                
+                Rectangle gar = aux.getBounds();
+                Rectangle ply2 = getBounds();
+                if (ply2.intersects(gar)){
+                    
+                    if (((Gargant) aux).getDamage() != 0){
+                        ((Gargant) aux).setDead(true);
+                        handler.removeObj(this);
+                    }
+            
                 }
             }
         }

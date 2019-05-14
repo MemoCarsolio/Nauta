@@ -139,7 +139,7 @@ public class Ship extends Player {
         }
 
         if (key == 32){
-            Blaster b = new Blaster(x+17,y-10,20,20,Color.red,handler);
+            Blaster b = new Blaster(1, x+17,y-10, 0, -12,20,20,Color.red,handler);
             handler.addObj(b);
             AudioPlayer.get().playEffectSound("audio/blaster");
         }

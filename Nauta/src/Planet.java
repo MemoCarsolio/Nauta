@@ -10,7 +10,7 @@ import java.util.Random;
 public class Planet extends Scene {
     
     private int counter, counter2, counter3;
-    private Ship ship;
+    private Nauta nauta;
     private KeyListener k;
     private Boolean play;
     Random rGen;
@@ -18,11 +18,10 @@ public class Planet extends Scene {
     int xNauta, yNauta;
     
     private Pause pause;
-    BufferedImage capturedBg;
     
     protected Planet(int width, int height, Handler handler, Graphics g, BufferStrategy bs, Window window) {
         super(width, height, handler, g, bs, window);
-        ship = new Ship((width/2)-25, 350, 50, 50, Color.red, handler, 10, window);
+        nauta = new Nauta((width/2)-25, 350, 50, 50, Color.red, handler, 10, window);
         play = false;
         running = true;
         
@@ -69,7 +68,7 @@ public class Planet extends Scene {
     public void run() {
         running = true;
         
-        ship.resetValues(width);
+        nauta.resetValues(width);
         
         sceneSetup();
     
@@ -84,11 +83,11 @@ public class Planet extends Scene {
     
         while (running)
         {
-            if (ship.isPaused()){
+            if (nauta.isPaused()){
                 System.out.println("Paused");
                 pause = new Pause(width, height, handler, g, bs, window, background);
                 pause.run();
-                ship.setPaused(false);
+                nauta.setPaused(false);
                 running = pause.isRun();
             }
         
@@ -155,8 +154,8 @@ public class Planet extends Scene {
             if (counter >= 40){
                  posx = rGen.nextInt(96) * 10;
                  posy = rGen.nextInt(54) * 10;
-                 xNauta = ship.getX();
-                 yNauta = ship.getY();
+                 xNauta = nauta.getX();
+                 yNauta = nauta.getY();
                  handler.addObj(new Gargant(posx, posy, 120, 120, Color.white, handler, xNauta, yNauta));
                  counter = 0;
             }
@@ -165,7 +164,7 @@ public class Planet extends Scene {
             updateGargants();
             handler.tick();
             
-            if (ship.isDead()){
+            if (nauta.isDead()){
                 change = 6;
                 running = false;
             }
@@ -177,10 +176,10 @@ public class Planet extends Scene {
     public void sceneSetup() {
         rGen = new Random(System.currentTimeMillis());
         play = true;
-        k = new KeyInput(ship);
+        k = new KeyInput(nauta);
         window.getCanvas().addKeyListener(k);
         
-        handler.addObj(ship);
+        handler.addObj(nauta);
         
         loadAssets();
     }

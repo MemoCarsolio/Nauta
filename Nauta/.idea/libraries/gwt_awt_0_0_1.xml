@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="gwt-awt-0.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/gwt-awt-0.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/src/gwt-awt-0.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/gwt-awt-0.0.1.jar!/com/levigo/util/gwtawt/emul" />
+    </SOURCES>
+  </library>
+</component>
